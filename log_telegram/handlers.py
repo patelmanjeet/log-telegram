@@ -2,7 +2,7 @@ import logging.handlers
 import time
 from queue import Queue
 
-import telegram
+import telebot
 
 logger = logging.getLogger()
 
@@ -37,7 +37,7 @@ class LogMessageDispatcher(logging.Handler):
     def __init__(self, token: str, chat_ids: list):
         self.token = token
         self.chat_ids = chat_ids
-        self.client = telegram.Bot(token)
+        self.client = telebot.TeleBot(token)
         super().__init__()
 
     def handle(self, record):
@@ -54,13 +54,7 @@ class LogMessageDispatcher(logging.Handler):
         for chat_id in self.chat_ids:
             try:
                 self.client.send_message(chat_id, record)
-            except telegram.error.TimedOut:
+            except Exception as e:
+                logger.error(e)
                 time.sleep(5)
-            except telegram.error.Unauthorized:
-                logger.debug("Invalid bot token")
-                time.sleep(5)
-            except telegram.error.RetryAfter as e:
-                logger.debug(f"Retry after {e.retry_after} seconds")
-                time.sleep(e.retry_after)
-
             time.sleep(self.API_CALL_INTERVAL)

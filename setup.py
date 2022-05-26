@@ -2,11 +2,12 @@ from setuptools import setup
 
 setup(
     name="log_telegram",
-    version="0.0.1",
+    version="0.1",
     packages=["log_telegram"],
-    url="",
-    license="",
+    url="https://github.com/kevinpita/log-telegram",
+    license="BSD-3-Clause",
     author="Kevin Pita",
-    author_email="",
-    description="",
+    description="Logging handler to send logs to Telegram",
+    keywords=["telegram", "logging"],
+    install_requires=["python-telegram-bot"],
 )

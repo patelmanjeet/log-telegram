@@ -8,7 +8,7 @@ logger = logging.getLogger()
 
 
 class Handler(logging.handlers.QueueHandler):
-    def __init__(self, token: str, chat_ids: list[int], fmt=None):
+    def __init__(self, token: str, chat_ids: list, fmt=None):
         """
         :param token: telegram bot API token
         :param chat_ids: list of intergers with chat ids
